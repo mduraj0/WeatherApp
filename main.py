@@ -17,6 +17,14 @@ def main(page: flet.Page):
     page.horizontal_alignment = 'center'
     page.vertical_alignment = 'center'
 
+    def _expand(e):
+        if e.data == 'true':
+            _c.content.controls[0].height = 560
+            _c.content.controls[0].update()
+        else:
+            _c.content.controls[0].height = 660 * 0.4
+            _c.content.controls[0].update()
+
     def _top():
         top = Container(
             width=310,
@@ -27,7 +35,7 @@ def main(page: flet.Page):
                 colors=['lightblue600', 'lightblue900']
             ),
             border_radius=35,
-            animate=animation.Animation(duration=350,curve='decelerate'),
+            animate=animation.Animation(duration=350, curve='decelerate'),
             on_hover=lambda e: _expand(e)
 
         )
