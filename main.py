@@ -6,17 +6,16 @@ from flet import *
 import requests
 import datetime
 
+api_key = '8d3b0a2d8e81b13ba60923d557f702b2'
 
-# api_key = '8d3b0a2d8e81b13ba60923d557f702b2'
-#
-# response = requests.get(f'http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={api_key}')
-#
-# print(response)
+response = requests.get(f'https://api.openweathermap.org/geo/1.0/reverse?lat=52.21&lon=21.0&limit=5&appid={api_key}')
+
 
 def main(page: flet.Page):
     page.horizontal_alignment = 'center'
     page.vertical_alignment = 'center'
 
+    # animation
     def _expand(e):
         if e.data == 'true':
             _c.content.controls[0].height = 560
@@ -35,8 +34,42 @@ def main(page: flet.Page):
                 colors=['lightblue600', 'lightblue900']
             ),
             border_radius=35,
-            animate=animation.Animation(duration=350, curve='decelerate'),
-            on_hover=lambda e: _expand(e)
+            animate=animation.Animation(duration=450, curve='decelerate'),
+            on_hover=lambda e: _expand(e),
+            padding=15,
+            content=Column(
+                alignment='start',
+                spacing=10,
+                controls=[
+                    Row(
+                        alignment='center',
+                        controls=[
+                            Text(
+                                'Warsaw, PL',
+                                size=16,
+                                weight='w500',
+                            )
+                        ]
+                    ),
+                    Container(padding=padding.only
+                    (bottom=5)),
+                    Row(
+                        alignment='center',
+                        spacing=30,
+                        controls=[
+                            Column(
+                                controls=[
+                                    Container(
+                                        width=90,
+                                        height=90,
+                                        image_src='./assets/images.png'
+                                    ),
+                                ]
+                            ),
+                        ],
+                    ),
+                ],
+            ),
 
         )
 
@@ -61,4 +94,4 @@ def main(page: flet.Page):
 
 
 if __name__ == '__main__':
-    flet.app(target=main, assets_dir='assets')
+    flet.app(target=main, assets_dir='')
