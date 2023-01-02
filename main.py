@@ -5,10 +5,11 @@ import flet
 from flet import *
 import requests
 import datetime
+import json
 
 api_key = '8d3b0a2d8e81b13ba60923d557f702b2'
 
-response = requests.get(f'https://api.openweathermap.org/geo/1.0/reverse?lat=52.21&lon=21.0&limit=5&appid={api_key}')
+_current = requests.get(f'https://api.openweathermap.org/geo/1.0/reverse?lat=52.21&lon=21.0&limit=5&appid={api_key}')
 
 
 def main(page: flet.Page):
@@ -24,7 +25,15 @@ def main(page: flet.Page):
             _c.content.controls[0].height = 660 * 0.4
             _c.content.controls[0].update()
 
+    def _current_temp():
+
+        _current_temp = int(_current.json()['current']['temp'])
+
+        return [_current_temp]
+
     def _top():
+
+        _today = _current_temp()
         top = Container(
             width=310,
             height=660 * 0.40,
@@ -66,6 +75,31 @@ def main(page: flet.Page):
                                     ),
                                 ]
                             ),
+                            Column(
+                                spacing=5,
+                                horizontal_alignment='center',
+                                controls=[
+                                    Text(
+                                        'Today',
+                                        size=12,
+                                        text_align='center',
+
+                                    ),
+                                    Row(
+                                        vertical_alignment='start',
+                                        spacing=0,
+                                        controls=[
+                                            Container(
+                                                content=Text(
+                                                    _today[0],
+                                                    size=52,
+
+                                                )
+                                            )
+                                        ]
+                                    )
+                                ]
+                            )
                         ],
                     ),
                 ],
