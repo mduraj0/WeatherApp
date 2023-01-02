@@ -34,6 +34,7 @@ def main(page: flet.Page):
     def _top():
 
         _today = _current_temp()
+
         top = Container(
             width=310,
             height=660 * 0.40,
@@ -94,12 +95,12 @@ def main(page: flet.Page):
                                                     _today[0],
                                                     size=52,
 
-                                                )
+                                                ),
                                             )
-                                        ]
-                                    )
-                                ]
-                            )
+                                        ],
+                                    ),
+                                ],
+                            ),
                         ],
                     ),
                 ],
